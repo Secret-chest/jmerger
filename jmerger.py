@@ -24,7 +24,8 @@ files = args.files
 if len(files) < 2:
     print("need at least 2 files", file=sys.stderr)
     exit(1)
-print(f"merging { len(files) } files { files } into { args.outputFile }")
+if not args.quiet:
+    print(f"merging { len(files) } files { files } into { args.outputFile }")
 outputFile = open(str(args.outputFile if args.outputFile != "stdout" else sys.stdout), "w")
 
 newJSONData = {}
@@ -32,5 +33,9 @@ for file in files:
     data = json.load(open(file))
     for k in data.keys():
         newJSONData[k] = data[k]
-json.dump(newJSONData, outputFile)
+if args.outputFile == "stdout":
+    print(json.dumps(newJSONData), file=sys.stdout)
+else:
+    print(json.dumps(newJSONData), file=outputFile)
+
 outputFile.close()
