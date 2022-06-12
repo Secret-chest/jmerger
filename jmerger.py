@@ -13,6 +13,8 @@ parser = argparse.ArgumentParser(description="Merge JSON files.")
 
 parser.add_argument("-f", "--file", dest="outputFile", default="stdout",
                     help="write output to FILE instead of stdout")
+parser.add_argument("-i", "--indentation", dest="indent", default=4,
+                    help="set custom indentation for output, default 4")
 parser.add_argument("-q", "--quiet",
                     action="store_true", dest="quiet", default=False,
                     help="only print the JSON output (if applicable) to stdout, otherwise print nothing")
@@ -34,8 +36,8 @@ for file in files:
     for k in data.keys():
         newJSONData[k] = data[k]
 if args.outputFile == "stdout":
-    print(json.dumps(newJSONData), file=sys.stdout)
+    print(json.dumps(newJSONData, indent=4), file=sys.stdout)
 else:
-    print(json.dumps(newJSONData), file=outputFile)
+    print(json.dumps(newJSONData, indent=4), file=outputFile)
 
 outputFile.close()
