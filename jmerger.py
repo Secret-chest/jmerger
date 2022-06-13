@@ -36,8 +36,8 @@ for file in files:
     for k in data.keys():
         newJSONData[k] = data[k]
 if args.outputFile == "stdout":
-    print(json.dumps(newJSONData, indent=args.indent), file=sys.stdout)
+    print(json.dumps(newJSONData, indent=int(args.indent)), file=sys.stdout)
 else:
-    print(json.dumps(newJSONData, indent=args.indent), file=outputFile)
+    print(json.dumps(newJSONData, indent=int(args.indent)), file=outputFile)
 
 outputFile.close()
